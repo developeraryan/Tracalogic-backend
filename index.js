@@ -22,39 +22,6 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
-//post req for getting  data and creating pdf
-// app.post("/pdf", async (req, res) => {
-//   console.log("body", req.body);
-//   // const html = fs.readFileSync("./routes/pdf.js", "utf-8");
-//   // await page.setContent(html, { waitUntil: "domcontentloaded" });
-//   (async () => {
-
-//   // Create a browser instance
-//   const browser = await puppeteer.launch();
-
-//   // Create a new page
-//   const page = await browser.newPage();
-
-//   //Get HTML content from HTML file
-//   const html = fs.readFileSync('./routes/pdf.js');
-//   await page.setContent(html, { waitUntil: 'domcontentloaded' });
-
-//   // To reflect CSS used for screens instead of print
-//   await page.emulateMediaType('screen');
-
-//   // Downlaod the PDF
-//   const pdf = await page.pdf({
-//     path: 'result.pdf',
-//     margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
-//     printBackground: true,
-//     format: 'A4',
-//   });
-
-//   // Close the browser instance
-//   await browser.close();
-// })();
-// });
-
 app.post("/pdf", async (req, res) => {
     console.log("body", req.body);
     const data = req.body;
