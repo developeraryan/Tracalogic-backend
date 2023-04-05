@@ -1,4 +1,4 @@
-module.exports = ({engineername}) => {
+module.exports = ({engineername,jobname,jobcode,contactnumber,inchargename}) => {
   const date = new Date();
   return `
     <!DOCTYPE html>
@@ -10,7 +10,13 @@ module.exports = ({engineername}) => {
     <title>Document</title>
 </head>
 <body>
-    <h1>${engineername}</h1>
+    <h1>Date: ${date}</h1>
+    <h1>Engineer Name: ${engineername}</h1>
+    <h1>Job Name: ${jobname}</h1>
+    <h1>Job Code: ${jobcode}</h1>
+    <h1>Contact Number: ${contactnumber}</h1>
+    <h1>Incharge Name: ${inchargename}</h1>
+
 </body>
 </html>
  `;

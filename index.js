@@ -22,60 +22,33 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
-//post req for getting  data and creating pdf
-// app.post("/pdf", async (req, res) => {
-//   console.log("body", req.body);
-//   // const html = fs.readFileSync("./routes/pdf.js", "utf-8");
-//   // await page.setContent(html, { waitUntil: "domcontentloaded" });
-//   (async () => {
-
-//   // Create a browser instance
-//   const browser = await puppeteer.launch();
-
-//   // Create a new page
-//   const page = await browser.newPage();
-
-//   //Get HTML content from HTML file
-//   const html = fs.readFileSync('./routes/pdf.js');
-//   await page.setContent(html, { waitUntil: 'domcontentloaded' });
-
-//   // To reflect CSS used for screens instead of print
-//   await page.emulateMediaType('screen');
-
-//   // Downlaod the PDF
-//   const pdf = await page.pdf({
-//     path: 'result.pdf',
-//     margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
-//     printBackground: true,
-//     format: 'A4',
-//   });
-
-//   // Close the browser instance
-//   await browser.close();
-// })();
-// });
-
+// post req for getting  data and creating pdf
 app.post("/pdf", async (req, res) => {
-    console.log("body", req.body);
+  console.log("body", req.body);
+  (async () => {
+    // Create a browser instance
+    const browser = await puppeteer.launch();
     const data = req.body;
-  // Create a new PDF document
-  const doc = new pdfDoc();
+    // Create a new page
+    const page = await browser.newPage();
+    let temp = pdfTemp(data);
+    //Get HTML content from HTML file
+    const html = fs.readFileSync("./routes/pdf.js", { encoding: "utf-8" });
+    await page.setContent(temp, { waitUntil: "domcontentloaded" });
 
-  // Set the content type to PDF
-  res.setHeader('Content-Type', 'application/pdf');
+    // To reflect CSS used for screens instead of print
+    await page.emulateMediaType("screen");
 
-  // Pipe the PDF document to the respons 
-   let temp= pdfTemp(data);
-  // Add the data to the PDF document
-  doc.text(JSON.stringify(temp));
-  
-  // Write the PDF document to a file
-  const filePath = `./pdfs/${data.engineername}.pdf`;
-  const stream = fs.createWriteStream(filePath);
-  doc.pipe(stream);
-  res.send('PDF file saved');
-  doc.end();
+    // Downlaod the PDF
+    const pdf = await page.pdf({
+      path: `./pdfs/${data.engineername}.pdf`,
+      margin: { top: "100px", right: "50px", bottom: "100px", left: "50px" },
+      printBackground: true,
+      format: "A4",
+    });
 
-  // Send a response to the client
-  
-  });
+    // Close the browser instance
+    await browser.close();
+  })();
+});
+
