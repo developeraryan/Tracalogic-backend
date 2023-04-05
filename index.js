@@ -23,26 +23,27 @@ app.get("/", (req, res) => {
 });
 
 app.post("/pdf", async (req, res) => {
-    console.log("body", req.body);
-    const data = req.body;
+  console.log("body", req.body);
+  const data = req.body;
   // Create a new PDF document
   const doc = new pdfDoc();
 
   // Set the content type to PDF
-  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader("Content-Type", "application/pdf");
 
-  // Pipe the PDF document to the respons 
-   let temp= pdfTemp(data);
+  // Pipe the PDF document to the respons
+  let temp = pdfTemp(data);
   // Add the data to the PDF document
-  doc.text(JSON.stringify(temp));
-  
+  // doc.text(temp,{type: 'text/html'});
+  doc.setEncoding("utf-8");
+  doc.addPage(temp);
+
   // Write the PDF document to a file
   const filePath = `./pdfs/${data.engineername}.pdf`;
   const stream = fs.createWriteStream(filePath);
   doc.pipe(stream);
-  res.send('PDF file saved');
+  res.send("PDF file saved");
   doc.end();
 
   // Send a response to the client
-  
-  });
+});
