@@ -67,8 +67,10 @@ app.post("/pdf", async (req, res) => {
       printBackground: true,
       format: "A4",
     });
-
+    
     // Close the browser instance
     await browser.close();
+    await res.sendFile(__dirname+`/pdfs/${dateNow}${data.engineername}.pdf`);
   })();
+  
 });
