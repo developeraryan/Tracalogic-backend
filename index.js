@@ -6,6 +6,7 @@ const cors = require("cors");
 const pdfTemp = require("./routes/pdf");
 const fs = require("fs");
 const pdfDoc = require("pdfkit");
+const { log } = require("console");
 
 const app = express();
 
@@ -39,10 +40,30 @@ app.post("/pdf", async (req, res) => {
     // To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
+    function getDateTime() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1;
+      var day = now.getDate();
+      if (month.toString().length == 1) {
+        month = "0" + month;
+      }
+      if (day.toString().length == 1) {
+        day = "0" + day;
+      }
+      var dateTime =
+        year +
+        "-" +
+        month +
+        "-" +
+        day;
+      return dateTime;
+    }
+    const dateNow = getDateTime();
     // Downlaod the PDF
     const pdf = await page.pdf({
-      path: `./pdfs/${data.engineername}.pdf`,
-      margin: { top: "100px", right: "50px", bottom: "100px", left: "50px" },
+      path: `./pdfs/${dateNow}${data.engineername}.pdf`,
+      margin: { top: "40px", right: "20px", bottom: "40px", left: "20px" },
       printBackground: true,
       format: "A4",
     });
@@ -51,4 +72,3 @@ app.post("/pdf", async (req, res) => {
     await browser.close();
   })();
 });
-
