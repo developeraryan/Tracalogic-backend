@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const port = process.env.port || 4200;
+const port = process.env.port || 3000;
 const puppeteer = require("puppeteer");
 const cors = require("cors");
 const pdfTemp = require("./routes/pdf");
