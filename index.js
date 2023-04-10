@@ -23,6 +23,27 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
+let engineername;
+console.log(engineername);
+function getDateTime() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth() + 1;
+  var day = now.getDate();
+  if (month.toString().length == 1) {
+    month = "0" + month;
+  }
+  if (day.toString().length == 1) {
+    day = "0" + day;
+  }
+  var dateTime =
+    year +
+    "-" +
+    month +
+    "-" +
+    day;
+  return dateTime;
+}
 // post req for getting  data and creating pdf
 app.post("/pdf", async (req, res) => {
   console.log("body", req.body);
@@ -37,28 +58,12 @@ app.post("/pdf", async (req, res) => {
     const html = fs.readFileSync("./routes/pdf.js", { encoding: "utf-8" });
     await page.setContent(temp, { waitUntil: "domcontentloaded" });
 
+    
     // To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
-    function getDateTime() {
-      var now = new Date();
-      var year = now.getFullYear();
-      var month = now.getMonth() + 1;
-      var day = now.getDate();
-      if (month.toString().length == 1) {
-        month = "0" + month;
-      }
-      if (day.toString().length == 1) {
-        day = "0" + day;
-      }
-      var dateTime =
-        year +
-        "-" +
-        month +
-        "-" +
-        day;
-      return dateTime;
-    }
+    engineername = data.engineername;
+    console.log(engineername);
     const dateNow = getDateTime();
     // Downlaod the PDF
     const pdf = await page.pdf({
@@ -74,3 +79,11 @@ app.post("/pdf", async (req, res) => {
   })();
   
 });
+
+
+app.get('/fetch-pdf',(req,res)=> {
+  const dateNow = getDateTime();
+  console.log(engineername);
+  res.sendFile(__dirname+`/pdfs/${dateNow}${engineername}.pdf`);
+  engineername = '';
+})

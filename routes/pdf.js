@@ -879,7 +879,7 @@ module.exports = ({
        <th>OLD SIM NO:</th>
        
        <td style="width: 70px; text-align: right; border-right: none">
-         <b>{oldSimNo}</b>
+         <b>${oldSimNo}</b>
        </td>
        <td colspan="5" style="border-left: none"></td>
      </tr>
@@ -887,7 +887,7 @@ module.exports = ({
        <th>OLD DEVICE NO.</th>
        
        <td style="width: 70px; text-align: right; border-right: none">
-         <b>{oldDeviceNo}</b>
+         <b>${oldDeviceNo}</b>
        </td>
        <td colspan="5" style="border-left: none"></td>
      </tr>
