@@ -874,6 +874,24 @@ module.exports = ({
         </tr>
    
       </table>
+      <table class="hm-p table-bordered" style="width: 100%; margin-top: 30px">
+      <tr style="background: #fcbd02">
+       <th>OLD SIM NO:</th>
+       
+       <td style="width: 70px; text-align: right; border-right: none">
+         <b>{oldSimNo}</b>
+       </td>
+       <td colspan="5" style="border-left: none"></td>
+     </tr>
+        <tr style="background: #fcbd02">
+       <th>OLD DEVICE NO.</th>
+       
+       <td style="width: 70px; text-align: right; border-right: none">
+         <b>{oldDeviceNo}</b>
+       </td>
+       <td colspan="5" style="border-left: none"></td>
+     </tr>
+   </table>
      <table class="hm-p table-bordered" style="width: 100%; margin-top: 30px">
         <tr>
           <th style="width: 400px">
